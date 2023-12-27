@@ -20,7 +20,8 @@ from django.shortcuts import render
 from accounts.models import UserBankAccount
 from .constants import TRANSFER_MONEY
 import sweetify
-
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
@@ -71,6 +72,15 @@ class DepositMoneyView(TransactionCreateMixin):
             f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
         )
 
+        mail_subject='Deposit message'
+        message=render_to_string('transactions/deposit_mail.html',{
+            'user': self.request.user,
+            'amount': amount
+        })
+        to_email=self.request.user.email
+        send_email=EmailMultiAlternatives(mail_subject,'',to=[to_email])
+        send_email.attach_alternative(message,'text/html')
+        send_email.send()
         return super().form_valid(form)
 
 
@@ -99,6 +109,15 @@ class WithdrawMoneyView(TransactionCreateMixin):
                 self.request,
                 f'Successfully withdrawn {"{:,.2f}".format(float(amount))}$ from your account'
             )
+            mail_subject='Withdrawal message'
+            message=render_to_string('transactions/withdraw_mail.html',{
+                'user': self.request.user,
+                'amount': amount
+            })
+            to_email=self.request.user.email
+            send_email=EmailMultiAlternatives(mail_subject,'',to=[to_email])
+            send_email.attach_alternative(message,'text/html')
+            send_email.send()
 
             return super().form_valid(form)
 
@@ -120,6 +139,16 @@ class LoanRequestView(TransactionCreateMixin):
             self.request,
             f'Loan request for {"{:,.2f}".format(float(amount))}$ submitted successfully'
         )
+        mail_subject='Loan Request message'
+        message=render_to_string('transactions/loan_mail.html',{
+                'user': self.request.user,
+                'amount': amount
+            })
+        to_email=self.request.user.email
+        send_email=EmailMultiAlternatives(mail_subject,'',to=[to_email])
+        send_email.attach_alternative(message,'text/html')
+        send_email.send()
+            
 
         return super().form_valid(form)
     
