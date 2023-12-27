@@ -12,7 +12,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://mamar-bank-61jh.onrender.com/']
+CSRF_TRUSTED_ORIGINS = ['https://mamar-bank-61jh.onrender.com']
 
 
 
