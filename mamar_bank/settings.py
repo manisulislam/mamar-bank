@@ -18,6 +18,8 @@ CSRF_TRUSTED_ORIGINS = ['https://mamar-bank-61jh.onrender.com']
 
 
 INSTALLED_APPS = [
+    "crispy_forms",
+    "crispy_tailwind",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -30,6 +32,9 @@ INSTALLED_APPS = [
     'transactions',
     'sweetify'
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
