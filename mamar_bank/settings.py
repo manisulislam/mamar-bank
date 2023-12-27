@@ -59,23 +59,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mamar_bank.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env("DB_NAME"),
+#         'USER': env("DB_USER"),
+#         'PASSWORD': env("DB_PASSWORD"),
+#         'HOST': env("DB_HOST"),
+#         'PORT': env("DB_PORT"),
+#     }
+# }
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgres://mamarbank_jstx_user:qvlRS89xLbiw3VTEZIGas90tAVDF3rPQ@dpg-cm5r3smn7f5s73c6kdrg-a.oregon-postgres.render.com/mamarbank_jstx',
+        default='postgres://mamarbank_cwxz_user:BYIJX5KFKwMjAcMUbM1Mu3HqhQ2h1g6W@dpg-cm642p21hbls73amut80-a.oregon-postgres.render.com/mamarbank_cwxz',
         
     )
 }
