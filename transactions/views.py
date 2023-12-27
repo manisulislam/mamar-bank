@@ -262,6 +262,31 @@ class TransferMoneyView(LoginRequiredMixin, View):
                 
                 
                 messages.success(request, 'Money transferred successfully')
+                # j taka patabe tar kace jabe
+                mail_subject='Transfer money message'
+                message=render_to_string('transactions/transfer_money_mail.html',{
+                    'user': self.request.user,
+                    'amount': amount,
+                    'account_query':account_query,
+                })
+                to_email=self.request.user.email
+                send_email=EmailMultiAlternatives(mail_subject,'',to=[to_email])
+                send_email.attach_alternative(message,'text/html')
+                send_email.send()
+                
+                # j recieve korbe tar kace jabe
+                mail_subject='Received money message'
+                message=render_to_string('transactions/receive_money_mail.html',{
+                    'user': self.request.user,
+                    'amount': amount,
+                    'account_query':account_query,
+                })
+                to_email=account_query.user.email
+                send_email=EmailMultiAlternatives(mail_subject,'',to=[to_email])
+                send_email.attach_alternative(message,'text/html')
+                send_email.send()
+                
+                # tarpor redirect korbe
                 return redirect('transaction_report')
                 
             else:
